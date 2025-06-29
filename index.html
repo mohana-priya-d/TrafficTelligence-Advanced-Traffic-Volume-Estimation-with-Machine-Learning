@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TrafficTelligence - Traffic Volume Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f6f8;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+            margin-top: 10px;
+        }
+        input {
+            padding: 6px;
+            width: 200px;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 30px;
+            font-size: 20px;
+            color: green;
+        }
+        img {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🔼 1. Image Header -->
+    <img src="{{ url_for('static', filename='traffic.jpg') }}" alt="Traffic Image">
+
+    <h2>🚦 Traffic Volume Prediction System</h2>
+
+    <!-- 🔄 2. Prediction Form -->
+    <form action="/predict" method="post">
+        <label>Temperature (Kelvin):</label>
+        <input type="number" name="temp" step="0.01" required><br>
+
+        <label>Rain (mm):</label>
+        <input type="number" name="rain" step="0.01" required><br>
+
+        <label>Snow (mm):</label>
+        <input type="number" name="snow" step="0.01" required><br>
+
+        <label>Weather (encoded number):</label>
+        <input type="number" name="weather" required><br>
+
+        <label>Holiday (encoded number):</label>
+        <input type="number" name="holiday" required><br>
+
+        <label>Hour (0–23):</label>
+        <input type="number" name="hour" min="0" max="23" required><br>
+
+        <label>Day of Week (0=Mon to 6=Sun):</label>
+        <input type="number" name="dayofweek" min="0" max="6" required><br>
+
+        <button class="button" type="submit">Predict Traffic Volume</button>
+    </form>
+
+    <!-- 📢 3. Prediction Output -->
+    {% if prediction %}
+        <div class="result">
+            🔮 Predicted Traffic Volume: <strong>{{ prediction }}</strong>
+        </div>
+    {% endif %}
+
+</body>
+</html>
